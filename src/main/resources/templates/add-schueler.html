@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Schüler hinzufügen</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <form method="post" action="/add-schueler" th:object="${schueler}">
+        <fieldset>
+            <label>Klasse:</label>
+            <select class="custom-select" th:field="*{klasse}">
+                <option th:each="klasse : ${klassen}" th:value="${klasse}" th:text="${klasse}"></option>
+            </select>
+        </fieldset>
+        <fieldset>
+            <label>Vorname:</label>
+            <input class="form-control" type="text" th:field="*{vorname}">
+            <span class="text-danger" th:if="${#fields.hasErrors('vorname')}" th:errors="*{vorname}"></span>
+        </fieldset>
+        <fieldset>
+            <label>Nachname:</label>
+            <input class="form-control" type="text" th:field="*{nachname}">
+            <span class="text-danger" th:if="${#fields.hasErrors('nachname')}" th:errors="*{nachname}"></span>
+        </fieldset>
+        <fieldset>
+            <label>Geschlecht:</label>
+            <span th:each="g : ${geschlecht}">
+                <input class="radio-button" type="radio" th:field="*{geschlecht}" th:value="${g.charAt(0)}" th:text="${g}">
+            </span>
+        </fieldset>
+        <input type="submit" th:value="'Schüler speichern'">
+    </form>
+    <script type="text/javascript"
+            th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Schueler in Klasse</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <div class="container">
+        <form method="post" action="/load-schueler" th:object="${klasseObj}">
+            <fieldset>
+                <select class="custom-select" th:field="*{klasse}">
+                    <option th:each="klasse : ${klassen}" th:value="${klasse}" th:text="${klasse}"></option>
+                </select>
+            </fieldset>
+            <input type="submit" value="Schüler anzeigen">
+        </form>
+    </div>
+    <div class="container" th:if="${schuelerInKlasse} != null">
+        <table class="table table-striped">
+            <tr>
+                <th>Kat.Nr.</th>
+                <th>Klasse</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Geschlecht</th>
+            </tr>
+            <tr th:each="schueler : ${schuelerInKlasse}">
+                <td th:text="${schueler.kn}"></td>
+                <td th:text="${schueler.klasse}"></td>
+                <td th:text="${schueler.vorname}"></td>
+                <td th:text="${schueler.nachname}"></td>
+                <td th:text="${schueler.geschlecht}"></td>
+            </tr>
+        </table>
+        <a class="btn btn-primary" href="add-schueler" th:text="'Schüler hinzufügen'"></a>
+    </div>
+</body>
+</html>
